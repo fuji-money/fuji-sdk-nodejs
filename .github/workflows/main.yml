@@ -24,9 +24,15 @@ jobs:
 
       - name: Lint
         run: yarn lint
+      
+      - name: Build
+        run: yarn build
+
+      - name: Install Nigiri
+        uses: vulpemventures/nigiri-action@v1
+
+      - name: Issue asset in Regtest
+        run: node ./test/scripts/issueAsset.js
 
       - name: Test
         run: yarn test --ci --coverage --maxWorkers=2
-
-      - name: Build
-        run: yarn build
