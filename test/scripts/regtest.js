@@ -38,6 +38,9 @@ async function main() {
   // mine block
   await rpcCommand('generatetoaddress', [1, factoryAddress]);
 
+  // rescan blockchain
+  await rpcCommand('rescanblockchain');
+
   // get reiussuance token hash
   const issuances = await rpcCommand('listissuances');
   const issuance = issuances[0];
