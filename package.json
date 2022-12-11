@@ -1,0 +1,62 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "regtest": "node ./test/scripts/regtest.js",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "fuji-sdk",
+  "module": "dist/fuji-sdk-js.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/fuji-sdk-js.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/fuji-sdk-js.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.1.0",
+    "husky": "^8.0.2",
+    "size-limit": "^8.1.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@ionio-lang/ionio": "^0.2.7",
+    "decimal.js": "^10.4.3",
+    "ecpair": "^2.1.0",
+    "jsonrpc-ts": "^0.2.1",
+    "tiny-secp256k1": "^2.2.1"
+  }
+}
