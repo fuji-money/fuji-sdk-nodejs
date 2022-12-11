@@ -29,7 +29,7 @@ jobs:
         run: yarn build
 
       - name: Install Nigiri
-        uses: vulpemventures/nigiri-action@v1
+        uses: vulpemventures/nigiri-github-action@v1
 
       - name: Issue asset in Regtest
         run: yarn regtest
