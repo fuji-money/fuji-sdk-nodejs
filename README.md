@@ -1,4 +1,4 @@
-# 🌋Fuji 💻 SDK for Node.js
+# 🌋Fuji SDK for Node.js
 
 The Fuji SDK provides an easy way to integrate Fuji in your Node.js apps, a decentralized stablecoin protocol, that combines Liquid and Lightning Network.
 
@@ -20,7 +20,7 @@ npm install fuji-sdk
 Here is an example of how to use the SDK to borrow fuji assets in Testnet:
 
 ```ts
-import { Fuji, Oracles, TestnetAssets } from 'fuji-sdk';
+import Fuji, { toSatoshis, Oracles, TestnetAssets } from 'fuji-sdk';
       
 // create a new instance of Fuji connected to Elements Core wallet
 const fuji = new Fuji({
@@ -35,7 +35,7 @@ const fuji = new Fuji({
 const oracles = [ Oracles.FujiMoney ];
 
 // borrow 500 FUSD at 180% collateral ratio
-const txid = await fuji.borrow({
+const { txid } = await fuji.borrow({
   amount: toSatoshis(500),
   collateralRatio: 180,
   oracles,
@@ -51,7 +51,7 @@ To run the project, you will need the following:
 
 * Node.js 14 or later
 * An elements node running 
-* A Fuji factory backend running on port `:8000`
+* A Fuji factory backend
 
 To install the dependencies, run the following command:
 

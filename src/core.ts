@@ -30,11 +30,12 @@ import { Factory } from './factory';
 const ECPair = ECPairFactory(ecc);
 
 export default class Fuji implements FujiInterface {
-  private elementsCore: ElementsWrapper;
-  private factory: Factory;
+  public elementsCore: ElementsWrapper;
+  public factory: Factory;
   public asset: string;
   public collateral: string;
   public pair: string;
+  private options: { broadcast?: boolean | undefined };
 
   constructor({
     asset,
@@ -42,11 +43,13 @@ export default class Fuji implements FujiInterface {
     pair = 'BTC/USD',
     factoryEndpoint = 'https://factory.fuji.money',
     elementsCoreEndpoint,
+    options,
   }: FujiParams) {
     this.asset = asset || Assets.FUSD;
     this.collateral = collateral || Assets.LBTC;
     this.pair = pair;
     this.factory = new Factory(factoryEndpoint);
+    this.options = options || {};
 
     if (!elementsCoreEndpoint)
       throw new Error(
@@ -59,7 +62,12 @@ export default class Fuji implements FujiInterface {
     this.elementsCore = new ElementsWrapper(rpcClient);
   }
 
-  async borrow(borrowParams: BorrowParams): Promise<any> {
+  async borrow(
+    borrowParams: BorrowParams
+  ): Promise<{
+    txid?: string;
+    hex: string;
+  }> {
     if (borrowParams.amount <= 0)
       throw new Error('amount must be greater than 0');
     if (borrowParams.collateralRatio <= 0)
@@ -69,6 +77,10 @@ export default class Fuji implements FujiInterface {
       borrowParams.oracles.length === 0
     )
       throw new Error('oracles must be an array with at least one oracle');
+
+    // check if factory is ready
+    const isOnline = await this.factory.ping();
+    if (!isOnline) throw new Error('FUJI Factory is not online');
 
     // among all selected oracles, get the one with the highest price
     const { price, signature, oraclePublicKey } = await oracleWithHigestPrice(
@@ -118,10 +130,14 @@ export default class Fuji implements FujiInterface {
 
     const hex = await this.signAndFinalizeTx(partialTransaction);
 
-    const txid = await this.elementsCore.rpcCommand('sendrawtransaction', [
-      hex,
-    ]);
-    return txid;
+    if (this.options.broadcast) {
+      const txid = await this.elementsCore.rpcCommand('sendrawtransaction', [
+        hex,
+      ]);
+      return { txid, hex };
+    }
+
+    return { hex };
   }
 
   redeem(_redeemParams: RedeemParams): Promise<any> {
@@ -167,6 +183,7 @@ export default class Fuji implements FujiInterface {
 
     for (let i = 0; i < unspents.length; i++) {
       const u = unspents[i];
+
       const { hex } = await this.elementsCore.rpcCommand('gettransaction', {
         txid: u.txid,
       });
