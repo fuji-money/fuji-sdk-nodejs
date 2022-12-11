@@ -32,7 +32,7 @@ jobs:
         uses: vulpemventures/nigiri-action@v1
 
       - name: Issue asset in Regtest
-        run: node ./test/scripts/issueAsset.js
+        run: yarn regtest
 
       - name: Test
         run: yarn test --ci --coverage --maxWorkers=2
