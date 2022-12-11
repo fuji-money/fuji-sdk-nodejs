@@ -37,11 +37,11 @@
   "size-limit": [
     {
       "path": "dist/fuji-sdk-js.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "512 KB"
     },
     {
       "path": "dist/fuji-sdk-js.esm.js",
-      "limit": "10 KB"
+      "limit": "512 KB"
     }
   ],
   "devDependencies": {
