@@ -7,8 +7,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ['14.x']
-        os: [ubuntu-latest, macOS-latest]
+        node: ['14.x', '16.x']
+        os: [ubuntu-latest]
 
     steps:
       - name: Checkout repo
@@ -24,16 +24,13 @@ jobs:
 
       - name: Lint
         run: yarn lint
-      
-      - name: Build
-        run: yarn build
 
       - name: Install Nigiri
         uses: vulpemventures/nigiri-github-action@v1
 
       - name: Issue asset in Regtest
         run: |
-          sleep 5
+          sleep 4
           yarn regtest
 
       - name: Test

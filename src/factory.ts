@@ -35,6 +35,17 @@ export type ContractParams = {
 export class Factory {
   constructor(private endpoint: string = 'https://factory.fuji.money') {}
 
+  async ping(): Promise<boolean> {
+    try {
+      const response = await axios.get(`${this.endpoint}/ping`);
+      if (response.status === 200) return true;
+    } catch (error) {
+      return false;
+    }
+
+    return false;
+  }
+
   async preview(
     amount: number,
     asset: string,
@@ -56,7 +67,8 @@ export class Factory {
       return { contractAddress, contractParams };
     } catch (error) {
       if (error && error.hasOwnProperty('isAxiosError')) {
-        throw new Error((error as any).response.data.error);
+        if ('repsonse' in (error as any) && 'data' in (error as any).response)
+          throw new Error((error as any).response.data.error);
       }
       if (error instanceof Error) {
         throw new Error(error.message);
