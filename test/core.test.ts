@@ -1,4 +1,4 @@
-import Fuji, { RegtestAssets, toSatoshis, Oracles } from '../src/index';
+import Fuji, { toSatoshis, Oracles, TestnetAssets } from '../src/index';
 import fixtures from './fixtures/fixtures.json';
 
 jest.setTimeout(20000);
