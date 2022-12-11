@@ -1,4 +1,4 @@
-# 🌋Fuji 💻 SDK for Node.js
+# 🌋Fuji SDK for Node.js
 
 The Fuji SDK provides an easy way to integrate Fuji in your Node.js apps, a decentralized stablecoin protocol, that combines Liquid and Lightning Network.
 
