@@ -30,7 +30,7 @@ jobs:
 
       - name: Issue asset in Regtest
         run: |
-          sleep 9
+          sleep 5
           yarn regtest
 
       - name: Test
