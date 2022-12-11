@@ -1,8 +1,8 @@
 const { RpcClient } = require('jsonrpc-ts');
 
 const elementsCoreEndpoint = 'http://admin1:123@localhost:18884';
-const walletAddress = "ert1qxxzaek2js7ggx8amt4uvxud0nz6l99ysk3574v";
-const walletKeyWIF = "cS4Ne6UqRKB5XYp3r5tJ96iRk55tufvrB2XRG8TfjFYN5sMZ1TuJ";
+const walletAddress = 'ert1qxxzaek2js7ggx8amt4uvxud0nz6l99ysk3574v';
+const walletKeyWIF = 'cS4Ne6UqRKB5XYp3r5tJ96iRk55tufvrB2XRG8TfjFYN5sMZ1TuJ';
 const factoryAddress =
   'el1qqg0yjpdg0ctzpruffl87vynrw4sar0yuch7eakttgsmm2rk73mhqukhermhsywgq83xpe3804ap8qvn4jhnkk0rsjy3mxfx58';
 const rpcClient = new RpcClient({
@@ -58,7 +58,7 @@ async function main() {
     false,
     issuance.token,
   ]);
-  console.log(`moved token to factory at txid: ${txid}`)
+  console.log(`moved token to factory at txid: ${txid}`);
 
   // mine a block
   await rpcCommand('generatetoaddress', [1, factoryAddress]);
@@ -70,7 +70,7 @@ async function main() {
   // make smaller utxo of 6 BTC to hardcoded address
   await rpcCommand('sendtoaddress', [walletAddress, 6]);
   await rpcCommand('generatetoaddress', [1, factoryAddress]);
-  
+
   // rescan blockchain
   await rpcCommand('rescanblockchain');
 

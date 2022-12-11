@@ -25,11 +25,15 @@ export interface FujiParams {
   elementsCoreEndpoint?: string;
   options?: {
     broadcast?: boolean;
-  }
+  };
 }
 
 export interface FujiInterface {
-  borrow({ amount, collateralRatio, oracles }: BorrowParams): Promise<{ txid?: string, hex: string}>;
+  borrow({
+    amount,
+    collateralRatio,
+    oracles,
+  }: BorrowParams): Promise<{ txid?: string; hex: string }>;
   redeem({ address }: RedeemParams): Promise<any>;
   updateCollateral({ collateralRatio }: UpdateCollateralParams): Promise<any>;
 }

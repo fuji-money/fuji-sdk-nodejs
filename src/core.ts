@@ -35,7 +35,7 @@ export default class Fuji implements FujiInterface {
   public asset: string;
   public collateral: string;
   public pair: string;
-  private options: { broadcast?: boolean | undefined; };
+  private options: { broadcast?: boolean | undefined };
 
   constructor({
     asset,
@@ -43,7 +43,7 @@ export default class Fuji implements FujiInterface {
     pair = 'BTC/USD',
     factoryEndpoint = 'https://factory.fuji.money',
     elementsCoreEndpoint,
-    options
+    options,
   }: FujiParams) {
     this.asset = asset || Assets.FUSD;
     this.collateral = collateral || Assets.LBTC;
@@ -62,7 +62,9 @@ export default class Fuji implements FujiInterface {
     this.elementsCore = new ElementsWrapper(rpcClient);
   }
 
-  async borrow(borrowParams: BorrowParams): Promise<{
+  async borrow(
+    borrowParams: BorrowParams
+  ): Promise<{
     txid?: string;
     hex: string;
   }> {

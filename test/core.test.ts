@@ -14,24 +14,22 @@ describe('Fuji', () => {
     elementsCoreEndpoint,
     factoryEndpoint,
     options: {
-      broadcast: false,     
-    }
+      broadcast: false,
+    },
   });
 
+  jest
+    .spyOn(fuji.factory, 'ping')
+    .mockImplementation(async () => Promise.resolve(true));
 
-  jest.spyOn(fuji.factory, 'ping')
-    .mockImplementation(
-      async () => Promise.resolve(true)
-    );
+  jest
+    .spyOn(fuji.factory, 'preview')
+    .mockImplementation(async () => Promise.resolve(fixtures.borrow.preview));
 
-  jest.spyOn(fuji.factory, 'preview')
-    .mockImplementation(
-      async () => Promise.resolve(fixtures.borrow.preview)
-    );
-
-  jest.spyOn(fuji.factory, 'proposeContract')
-    .mockImplementation(
-      async () => Promise.resolve(fixtures.borrow.proposeContract)
+  jest
+    .spyOn(fuji.factory, 'proposeContract')
+    .mockImplementation(async () =>
+      Promise.resolve(fixtures.borrow.proposeContract)
     );
 
   // restore the spy created with spyOn
